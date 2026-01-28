@@ -2,11 +2,11 @@
 #include "BaseClasses.h"
 #include <string>
 
-class Lyagushka : public virtual Npc //наследование с модификатором доступа public
+class Lyagushka : public virtual Npc //РЅР°СЃР»РµРґРѕРІР°РЅРёРµ СЃ РјРѕРґРёС„РёРєР°С‚РѕСЂРѕРј РґРѕСЃС‚СѓРїР° public
 {
-protected:  //модификатор 0 (приватный - защищенный, доступ к полям, только внутри класса)
+protected:  //РјРѕРґРёС„РёРєР°С‚РѕСЂ 0 (РїСЂРёРІР°С‚РЅС‹Р№ - Р·Р°С‰РёС‰РµРЅРЅС‹Р№, РґРѕСЃС‚СѓРї Рє РїРѕР»СЏРј, С‚РѕР»СЊРєРѕ РІРЅСѓС‚СЂРё РєР»Р°СЃСЃР°)
 	unsigned short strenght{ 31 };
-	std::string weapons[4] = { "шипучка", "волшебная пыльца", "когти", "сосулька" };
+	std::string weapons[4] = { "С€РёРїСѓС‡РєР°", "РІРѕР»С€РµР±РЅР°СЏ РїС‹Р»СЊС†Р°", "РєРѕРіС‚Рё", "СЃРѕСЃСѓР»СЊРєР°" };
 public:
 	Lyagushka();
 	Lyagushka(std::string name, unsigned int health, float damage);
@@ -26,24 +26,24 @@ public:
 	class Spell
 	{
 		protected: 
-			string name{ "заклинание" };
+			string name{ "Р·Р°РєР»РёРЅР°РЅРёРµ" };
 			unsigned short damage{ 0 };
 			unsigned short price{ 0 };
 			bool isCurse{ false };
 			int timeCast{ 0 };
 		public:
-			Spell(string name = "заклинание", unsigned short damage = 0, unsigned short price = 0, bool isCurse = false, int timeCast = 0);
+			Spell(string name = "Р·Р°РєР»РёРЅР°РЅРёРµ", unsigned short damage = 0, unsigned short price = 0, bool isCurse = false, int timeCast = 0);
 			string operator[](unsigned index) const;
 			unsigned short CastSpell();
 	};
 protected:
 	unsigned short intellect = 27;
 	Spell spells[5] = {
-		Spell("колкое оскорбление",20,50,false,3),
-		Spell("клонирование",10,30,false,1),
-		Spell("культурный шок",10,20,false),
-		Spell("политическая беседа",10,25,true,5),
-		Spell("обворожительный взгляд",5,10,false,10),
+		Spell("РєРѕР»РєРѕРµ РѕСЃРєРѕСЂР±Р»РµРЅРёРµ",20,50,false,3),
+		Spell("РєР»РѕРЅРёСЂРѕРІР°РЅРёРµ",10,30,false,1),
+		Spell("РєСѓР»СЊС‚СѓСЂРЅС‹Р№ С€РѕРє",10,20,false),
+		Spell("РїРѕР»РёС‚РёС‡РµСЃРєР°СЏ Р±РµСЃРµРґР°",10,25,true,5),
+		Spell("РѕР±РІРѕСЂРѕР¶РёС‚РµР»СЊРЅС‹Р№ РІР·РіР»СЏРґ",5,10,false,10),
 	};
 public:
 	Kitty();
