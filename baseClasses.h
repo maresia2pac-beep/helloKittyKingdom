@@ -6,7 +6,7 @@ using namespace std;
 class Npc
 {
 protected:
-	string name{"персонаж"};
+	string name{"РїРµСЂСЃРѕРЅР°Р¶"};
 	unsigned int health{10};
 	float damage{5};
 	unsigned short lvl{1};
@@ -21,13 +21,13 @@ public:
 
 	virtual void GetInfo()
 	{
-		cout << "Имя - " << name << endl;
-		cout << "Настроение - " << health << endl;
-		cout << "Урон - " << damage << endl;
+		cout << "РРјСЏ - " << name << endl;
+		cout << "РќР°СЃС‚СЂРѕРµРЅРёРµ - " << health << endl;
+		cout << "РЈСЂРѕРЅ - " << damage << endl;
 	}
 	virtual void Create() {};
 
-	// ИЗМЕНЕНИЕ: принимаем поток по ссылке, файл не открываем
+	// РР—РњР•РќР•РќРР•: РїСЂРёРЅРёРјР°РµРј РїРѕС‚РѕРє РїРѕ СЃСЃС‹Р»РєРµ, С„Р°Р№Р» РЅРµ РѕС‚РєСЂС‹РІР°РµРј
 	virtual bool Save(ofstream &saveSystem)
 	{
 		if (saveSystem.is_open())
@@ -43,7 +43,7 @@ public:
 		return false;
 	};
 
-	// ИЗМЕНЕНИЕ: принимаем поток по ссылке
+	// РР—РњР•РќР•РќРР•: РїСЂРёРЅРёРјР°РµРј РїРѕС‚РѕРє РїРѕ СЃСЃС‹Р»РєРµ
 	virtual bool Load(ifstream &loadSystem)
 	{
 		if (loadSystem.is_open())
@@ -51,7 +51,7 @@ public:
 			size_t nameLength;
 			loadSystem.read(reinterpret_cast<char *>(&nameLength), sizeof(nameLength));
 
-			// Защита от битого файла (если длина имени неадекватная)
+			// Р—Р°С‰РёС‚Р° РѕС‚ Р±РёС‚РѕРіРѕ С„Р°Р№Р»Р° (РµСЃР»Рё РґР»РёРЅР° РёРјРµРЅРё РЅРµР°РґРµРєРІР°С‚РЅР°СЏ)
 			if (nameLength > 1000)
 				return false;
 
@@ -84,14 +84,14 @@ public:
 		currentCharacter->Create();
 	}
 
-	// Метод перегружен, чтобы можно было создать без аргументов, если персонаж уже есть
+	// РњРµС‚РѕРґ РїРµСЂРµРіСЂСѓР¶РµРЅ, С‡С‚РѕР±С‹ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ СЃРѕР·РґР°С‚СЊ Р±РµР· Р°СЂРіСѓРјРµРЅС‚РѕРІ, РµСЃР»Рё РїРµСЂСЃРѕРЅР°Р¶ СѓР¶Рµ РµСЃС‚СЊ
 	void Create()
 	{
 		if (currentCharacter != nullptr)
 			currentCharacter->Create();
 	}
 
-	// Здесь открываем файл ОДИН РАЗ
+	// Р—РґРµСЃСЊ РѕС‚РєСЂС‹РІР°РµРј С„Р°Р№Р» РћР”РРќ Р РђР—
 	bool Save()
 	{
 		if (!currentCharacter)
@@ -100,20 +100,20 @@ public:
 		if (!saveSystem.is_open())
 			return false;
 
-		// Передаем поток внутрь
+		// РџРµСЂРµРґР°РµРј РїРѕС‚РѕРє РІРЅСѓС‚СЂСЊ
 		bool result = currentCharacter->Save(saveSystem);
 		saveSystem.close();
 		return result;
 	}
 
-	// Здесь открываем файл ОДИН РАЗ
+	// Р—РґРµСЃСЊ РѕС‚РєСЂС‹РІР°РµРј С„Р°Р№Р» РћР”РРќ Р РђР—
 	bool Load(unique_ptr<Npc> player)
 	{
 		ifstream loadSystem("save.bin", ios::binary);
 		if (!loadSystem.is_open())
 			return false;
 
-		// Передаем поток внутрь
+		// РџРµСЂРµРґР°РµРј РїРѕС‚РѕРє РІРЅСѓС‚СЂСЊ
 		if (player->Load(loadSystem))
 		{
 			currentCharacter = move(player);
