@@ -3,14 +3,14 @@
 
 Lyagushka::Lyagushka()
 {
-	name = "Лягушка";
+	name = "Р›СЏРіСѓС€РєР°";
 	health = 35;
 	damage = 10;
 };
 
 Lyagushka::Lyagushka(std::string name, unsigned int health, float damage)
 {
-	cout << "кастомный конструктор лягушки" << endl;
+	cout << "РєР°СЃС‚РѕРјРЅС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р»СЏРіСѓС€РєРё" << endl;
 	this->name = name;
 	this->health = health;
 	this->damage = damage;
@@ -18,14 +18,14 @@ Lyagushka::Lyagushka(std::string name, unsigned int health, float damage)
 
 void Lyagushka::GetWeapons()
 {
-	cout << name << " начинает плеваться " << weapons[lvl - 1];
+	cout << name << " РЅР°С‡РёРЅР°РµС‚ РїР»РµРІР°С‚СЊСЃСЏ " << weapons[lvl - 1];
 };
 
 void Lyagushka::GetInfo()
 {
 	Npc::GetInfo();
-	cout << "Сила - " << strenght << endl;
-	cout << "Доступная способность - ";
+	cout << "РЎРёР»Р° - " << strenght << endl;
+	cout << "Р”РѕСЃС‚СѓРїРЅР°СЏ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ - ";
 	for (int i = 0; i < lvl; i++)
 	{
 		cout << weapons[i] << endl;
@@ -33,8 +33,8 @@ void Lyagushka::GetInfo()
 };
 void Lyagushka::Create()
 {
-	cout << "Вы создали лягушку" << endl;
-	cout << "Введите имя персонажа\t";
+	cout << "Р’С‹ СЃРѕР·РґР°Р»Рё Р»СЏРіСѓС€РєСѓ" << endl;
+	cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°\t";
 	cin >> name;
 	GetInfo();
 	GetWeapons();
@@ -61,22 +61,22 @@ Lyagushka &Lyagushka::operator=(const Npc &npc)
 
 bool Lyagushka::Save(ofstream &saveSystem)
 {
-	// Сначала сохраняем базу (Npc), передавая тот же файл
+	// РЎРЅР°С‡Р°Р»Р° СЃРѕС…СЂР°РЅСЏРµРј Р±Р°Р·Сѓ (Npc), РїРµСЂРµРґР°РІР°СЏ С‚РѕС‚ Р¶Рµ С„Р°Р№Р»
 	if (!Npc::Save(saveSystem))
 		return false;
 
-	// Потом дописываем свое
+	// РџРѕС‚РѕРј РґРѕРїРёСЃС‹РІР°РµРј СЃРІРѕРµ
 	saveSystem.write(reinterpret_cast<const char *>(&strenght), sizeof(strenght));
 	return true;
 };
 
 bool Lyagushka::Load(ifstream &loadSystem)
 {
-	// Сначала читаем базу
+	// РЎРЅР°С‡Р°Р»Р° С‡РёС‚Р°РµРј Р±Р°Р·Сѓ
 	if (!Npc::Load(loadSystem))
 		return false;
 
-	// Потом читаем свое
+	// РџРѕС‚РѕРј С‡РёС‚Р°РµРј СЃРІРѕРµ
 	loadSystem.read(reinterpret_cast<char *>(&strenght), sizeof(strenght));
 	return loadSystem.good();
 };
@@ -84,7 +84,7 @@ bool Lyagushka::Load(ifstream &loadSystem)
 Lyagushka::~Lyagushka()
 {
 	if (health <= 0)
-		cout << name << " расстроен." << endl;
+		cout << name << " СЂР°СЃСЃС‚СЂРѕРµРЅ." << endl;
 };
 
 Kitty::Kitty()
@@ -96,7 +96,7 @@ Kitty::Kitty()
 
 Kitty::Kitty(string name, unsigned int health, float damage)
 {
-	cout << "кастомный конструктор kitty" << endl;
+	cout << "РєР°СЃС‚РѕРјРЅС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ kitty" << endl;
 	this->name = name;
 	this->health = health;
 	this->damage = damage;
@@ -105,8 +105,8 @@ Kitty::Kitty(string name, unsigned int health, float damage)
 void Kitty::GetInfo()
 {
 	Npc::GetInfo();
-	cout << "Интеллект - " << intellect << endl;
-	cout << "Доступные знания - ";
+	cout << "РРЅС‚РµР»Р»РµРєС‚ - " << intellect << endl;
+	cout << "Р”РѕСЃС‚СѓРїРЅС‹Рµ Р·РЅР°РЅРёСЏ - ";
 	GetSpellsInfo();
 };
 
@@ -114,7 +114,7 @@ void Kitty::GetSpellsInfo()
 {
 	for (int i = 0; i < 5; i++)
 	{
-		cout << i + 1 << " знание:\n";
+		cout << i + 1 << " Р·РЅР°РЅРёРµ:\n";
 		for (int j = 0; j < 5; j++)
 		{
 			cout << spells[i][j] << endl;
@@ -125,8 +125,8 @@ void Kitty::GetSpellsInfo()
 
 void Kitty::Create()
 {
-	cout << "Вы создали kitty" << endl;
-	cout << "Введите имя персонажа\t";
+	cout << "Р’С‹ СЃРѕР·РґР°Р»Рё kitty" << endl;
+	cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°\t";
 	cin >> name;
 	GetInfo();
 };
@@ -143,9 +143,9 @@ bool Kitty::Save(ofstream &saveSystem)
 {
 	if (Npc::Save(saveSystem))
 	{
-		// Файл уже открыт, просто пишем
+		// Р¤Р°Р№Р» СѓР¶Рµ РѕС‚РєСЂС‹С‚, РїСЂРѕСЃС‚Рѕ РїРёС€РµРј
 		saveSystem.write(reinterpret_cast<const char *>(&intellect), sizeof(intellect));
-		// Цикл заклинаний (пока пустой у тебя)
+		// Р¦РёРєР» Р·Р°РєР»РёРЅР°РЅРёР№ (РїРѕРєР° РїСѓСЃС‚РѕР№ Сѓ С‚РµР±СЏ)
 		return true;
 	}
 	return false;
@@ -154,7 +154,7 @@ bool Kitty::Save(ofstream &saveSystem)
 Kitty::~Kitty()
 {
 	if (health <= 0)
-		cout << name << " отправился к праотцам" << endl;
+		cout << name << " РѕС‚РїСЂР°РІРёР»СЃСЏ Рє РїСЂР°РѕС‚С†Р°Рј" << endl;
 };
 
 Kitty::Spell::Spell(string name, unsigned short damage,
@@ -172,44 +172,44 @@ string Kitty::Spell::operator[](unsigned index) const
 	switch (index)
 	{
 	case 0:
-		return "Название - " + name;
+		return "РќР°Р·РІР°РЅРёРµ - " + name;
 		break;
 	case 1:
-		return "Урон - " + to_string(damage);
+		return "РЈСЂРѕРЅ - " + to_string(damage);
 		break;
 	case 2:
-		return "Стоимость писпользования - " + to_string(price) + " маны";
+		return "РЎС‚РѕРёРјРѕСЃС‚СЊ РїРёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ - " + to_string(price) + " РјР°РЅС‹";
 		break;
 	case 3:
 	{
 		if (isCurse)
 		{
-			return "периодичный урон";
+			return "РїРµСЂРёРѕРґРёС‡РЅС‹Р№ СѓСЂРѕРЅ";
 		}
 		else
 		{
-			return "произносимый заговор";
+			return "РїСЂРѕРёР·РЅРѕСЃРёРјС‹Р№ Р·Р°РіРѕРІРѕСЂ";
 		}
 		break;
 	}
 	case 4:
-		return isCurse ? "Длительность дебафа - " + to_string(timeCast) : "Длительность использования - " + to_string(timeCast);
+		return isCurse ? "Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ РґРµР±Р°С„Р° - " + to_string(timeCast) : "Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ - " + to_string(timeCast);
 		break;
 	default:
-		return "такое свойство остутствует";
+		return "С‚Р°РєРѕРµ СЃРІРѕР№СЃС‚РІРѕ РѕСЃС‚СѓС‚СЃС‚РІСѓРµС‚";
 		break;
 	}
 }
 
 unsigned short Kitty::Spell::CastSpell()
 {
-	cout << "Ты прочёл заговор " << name << " на противнике" << endl;
+	cout << "РўС‹ РїСЂРѕС‡С‘Р» Р·Р°РіРѕРІРѕСЂ " << name << " РЅР° РїСЂРѕС‚РёРІРЅРёРєРµ" << endl;
 	return damage;
 }
 
 Kuromi::Kuromi()
 {
-	name = "Куроми";
+	name = "РљСѓСЂРѕРјРё";
 	health = 25;
 	damage = 12;
 	strenght = 27;
@@ -218,15 +218,15 @@ Kuromi::Kuromi()
 void Kuromi::GetInfo()
 {
 	Lyagushka::GetInfo();
-	cout << "Интеллект - " << intellect << endl;
-	cout << "Доступные заклинания в книге заклинаний - ";
+	cout << "РРЅС‚РµР»Р»РµРєС‚ - " << intellect << endl;
+	cout << "Р”РѕСЃС‚СѓРїРЅС‹Рµ Р·Р°РєР»РёРЅР°РЅРёСЏ РІ РєРЅРёРіРµ Р·Р°РєР»РёРЅР°РЅРёР№ - ";
 	GetSpellsInfo();
 };
 
 void Kuromi::Create()
 {
-	cout << "Вы создали куроми" << endl;
-	cout << "Введите имя персонажа\t";
+	cout << "Р’С‹ СЃРѕР·РґР°Р»Рё РєСѓСЂРѕРјРё" << endl;
+	cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°\t";
 	cin >> name;
 	GetInfo();
 	GetWeapons();
@@ -234,7 +234,7 @@ void Kuromi::Create()
 
 bool Kuromi::Save(ofstream &saveSystem)
 {
-	// Куроми наследует Warrior, вызываем его сохранение
+	// РљСѓСЂРѕРјРё РЅР°СЃР»РµРґСѓРµС‚ Warrior, РІС‹Р·С‹РІР°РµРј РµРіРѕ СЃРѕС…СЂР°РЅРµРЅРёРµ
 	if (Lyagushka::Save(saveSystem))
 	{
 		saveSystem.write(reinterpret_cast<const char *>(&intellect), sizeof(intellect));
@@ -246,5 +246,5 @@ bool Kuromi::Save(ofstream &saveSystem)
 Kuromi::~Kuromi()
 {
 	if (health <= 0)
-		cout << name << " расстроен и плачет" << endl;
+		cout << name << " СЂР°СЃСЃС‚СЂРѕРµРЅ Рё РїР»Р°С‡РµС‚" << endl;
 };
