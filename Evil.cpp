@@ -16,15 +16,15 @@ Evil::Evil(string name, int health, int damage) : Evil(name, health) {
 
 void Evil::GetInfo() {
 	cout << endl;
-	cout << "Âàñ àòàêóåò " << name << endl;
+	cout << "Ã‚Ã Ã± Ã Ã²Ã ÃªÃ³Ã¥Ã² " << name << endl;
 	if (health >= 0 && damage < 0) {
-		cout << "Çäîðîâüå - " << health << endl;
+		cout << "Ã‡Ã¤Ã®Ã°Ã®Ã¢Ã¼Ã¥ - " << health << endl;
 	}
 	if (health < 0 && damage >= 0) {
-		cout << "Íàñòðîåíèå - " << damage << endl;
+		cout << "ÃÃ Ã±Ã²Ã°Ã®Ã¥Ã­Ã¨Ã¥ - " << damage << endl;
 	}
 	if (health >= 0 && damage >= 0) {
-		cout << "Çäîðîâüå - " << health << endl;
-		cout << "Íàñòðîåíèå - " << damage << endl;
+		cout << "Ã‡Ã¤Ã®Ã°Ã®Ã¢Ã¼Ã¥ - " << health << endl;
+		cout << "ÃÃ Ã±Ã²Ã°Ã®Ã¥Ã­Ã¨Ã¥ - " << damage << endl;
 	}
 }
