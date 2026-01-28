@@ -9,10 +9,10 @@
 
 using namespace std;
 
-// === ВСПОМОГАТЕЛЬНЫЕ СТРУКТУРЫ ===
+// === Р’РЎРџРћРњРћР“РђРўР•Р›Р¬РќР«Р• РЎРўР РЈРљРўРЈР Р« ===
 enum class ValueQuality
 {
-    МУСОР, ОБЫЧНОЕ, РЕДКОЕ, МИФИЧЕСКОЕ, ЛЕГЕНДАРНОЕ 
+    РњРЈРЎРћР , РћР‘Р«Р§РќРћР•, Р Р•Р”РљРћР•, РњРР¤РР§Р•РЎРљРћР•, Р›Р•Р“Р•РќР”РђР РќРћР• 
 };
 
 enum class CharacterType {
@@ -22,39 +22,39 @@ enum class CharacterType {
 struct Treasure
 {
     Treasure() = default;
-    string name{ "уровень сладости" };
-    ValueQuality quality = ValueQuality::МИФИЧЕСКОЕ;
+    string name{ "СѓСЂРѕРІРµРЅСЊ СЃР»Р°РґРѕСЃС‚Рё" };
+    ValueQuality quality = ValueQuality::РњРР¤РР§Р•РЎРљРћР•;
     unsigned int price{ 0 };
     Treasure(ValueQuality quality)
     {
         switch (quality)
         {
-        case ValueQuality::МУСОР: cout << "горькое\n"; break;
-        case ValueQuality::ОБЫЧНОЕ: cout << "несладкое\n"; break;
-        case ValueQuality::РЕДКОЕ: cout << "сладенькое\n"; break;
-        case ValueQuality::МИФИЧЕСКОЕ: cout << "вкусняшка\n"; break;
-        case ValueQuality::ЛЕГЕНДАРНОЕ: cout << "конфетка\n"; break;
+        case ValueQuality::РњРЈРЎРћР : cout << "РіРѕСЂСЊРєРѕРµ\n"; break;
+        case ValueQuality::РћР‘Р«Р§РќРћР•: cout << "РЅРµСЃР»Р°РґРєРѕРµ\n"; break;
+        case ValueQuality::Р Р•Р”РљРћР•: cout << "СЃР»Р°РґРµРЅСЊРєРѕРµ\n"; break;
+        case ValueQuality::РњРР¤РР§Р•РЎРљРћР•: cout << "РІРєСѓСЃРЅСЏС€РєР°\n"; break;
+        case ValueQuality::Р›Р•Р“Р•РќР”РђР РќРћР•: cout << "РєРѕРЅС„РµС‚РєР°\n"; break;
         default: break;
         }
     }
 }; 
 
-struct Сloth : Treasure 
+struct РЎloth : Treasure 
 {
-    Сloth(ValueQuality quality) : Treasure(quality) {};
-    string valueSite[5]{ "бантик", "заколочка", "сумочка", "шарфик", "пояс" };
+    РЎloth(ValueQuality quality) : Treasure(quality) {};
+    string valueSite[5]{ "Р±Р°РЅС‚РёРє", "Р·Р°РєРѕР»РѕС‡РєР°", "СЃСѓРјРѕС‡РєР°", "С€Р°СЂС„РёРє", "РїРѕСЏСЃ" };
     string site{NULL};
     unsigned short armor{ 1 };
 };
 
 enum class EnemyType {
-    БЛУМ = 1, КАНЕКИ_КЕН, СОВУНЬЯ, SHADOW_FIEND, ДЖОКЕРВИКТОР_ДУДКА,
+    Р‘Р›РЈРњ = 1, РљРђРќР•РљР_РљР•Рќ, РЎРћР’РЈРќР¬РЇ, SHADOW_FIEND, Р”Р–РћРљР•Р Р’РРљРўРћР _Р”РЈР”РљРђ,
 };
 
-// === РЕАЛИЗАЦИЯ МЕХАНИК ===
+// === Р Р•РђР›РР—РђР¦РРЇ РњР•РҐРђРќРРљ ===
 void TakeDamage(Npc& npc, float damage)
 {
-    // Т.к. это friend функция, мы можем менять protected поле health напрямую
+    // Рў.Рє. СЌС‚Рѕ friend С„СѓРЅРєС†РёСЏ, РјС‹ РјРѕР¶РµРј РјРµРЅСЏС‚СЊ protected РїРѕР»Рµ health РЅР°РїСЂСЏРјСѓСЋ
     if (npc.health > damage) {
         npc.health -= (unsigned int)damage;
     } else {
@@ -82,76 +82,76 @@ unique_ptr<Npc> CreateCharacter(CharacterType type)
     case CharacterType::Lyagushka: return make_unique<Lyagushka>();
     case CharacterType::Kitty:  return make_unique<Kitty>();
     case CharacterType::Kuromi: return make_unique<Kuromi>();
-    default: throw invalid_argument("Неизвестный тип персонажа"); 
+    default: throw invalid_argument("РќРµРёР·РІРµСЃС‚РЅС‹Р№ С‚РёРї РїРµСЂСЃРѕРЅР°Р¶Р°"); 
     }
     return nullptr; 
 }
 
-// === ЛОГИКА БИТВЫ ===
+// === Р›РћР“РРљРђ Р‘РРўР’Р« ===
 void StartBattle(Player* playerWrapper)
 {
     Npc* player = playerWrapper->GetCharacter();
     if (!player) return;
 
-    // Генерируем случайного врага
+    // Р“РµРЅРµСЂРёСЂСѓРµРј СЃР»СѓС‡Р°Р№РЅРѕРіРѕ РІСЂР°РіР°
     int enemyType = rand() % 5; 
     string enemyName;
-    int hp = 20 + (rand() % 30); // 20-50 хп
-    int dmg = 5 + (rand() % 10); // 5-15 урон
+    int hp = 20 + (rand() % 30); // 20-50 С…Рї
+    int dmg = 5 + (rand() % 10); // 5-15 СѓСЂРѕРЅ
 
     switch(enemyType) {
-        case 0: enemyName = "Блум"; hp = 10; dmg = 2; break;
-        case 1: enemyName = "Канеки Кен"; hp = 5; dmg = 20; break;
-        case 2: enemyName = "Совунья"; hp = 150; dmg = 14; break;
+        case 0: enemyName = "Р‘Р»СѓРј"; hp = 10; dmg = 2; break;
+        case 1: enemyName = "РљР°РЅРµРєРё РљРµРЅ"; hp = 5; dmg = 20; break;
+        case 2: enemyName = "РЎРѕРІСѓРЅСЊСЏ"; hp = 150; dmg = 14; break;
         case 3: enemyName = "Shadow Fiend"; hp = 30; dmg = 5; break;
-        case 4: enemyName = "Джокер-Виктор Дудка"; hp = 100; dmg = 1; break;
+        case 4: enemyName = "Р”Р¶РѕРєРµСЂ-Р’РёРєС‚РѕСЂ Р”СѓРґРєР°"; hp = 100; dmg = 1; break;
     }
 
     Evil enemy(enemyName, hp, dmg);
     
-    cout << "На пути появился загадочный силуэт...\n";
+    cout << "РќР° РїСѓС‚Рё РїРѕСЏРІРёР»СЃСЏ Р·Р°РіР°РґРѕС‡РЅС‹Р№ СЃРёР»СѓСЌС‚...\n";
     enemy.GetInfo();
     cout << "...\n";
 
     while (true)
     {
-        cout << "\nКак защитить королевство?:о\n1 - Атаковать\n2 - Сбежать\n";
-        unsigned short action = TestChoise(2, "Сражайся или беги!");
+        cout << "\nРљР°Рє Р·Р°С‰РёС‚РёС‚СЊ РєРѕСЂРѕР»РµРІСЃС‚РІРѕ?:Рѕ\n1 - РђС‚Р°РєРѕРІР°С‚СЊ\n2 - РЎР±РµР¶Р°С‚СЊ\n";
+        unsigned short action = TestChoise(2, "РЎСЂР°Р¶Р°Р№СЃСЏ РёР»Рё Р±РµРіРё!");
 
         if (action == 1)
         {
-            // 1. Игрок бьет
+            // 1. РРіСЂРѕРє Р±СЊРµС‚
             float pDmg = player->GetDamage();
-            cout << "-> Вы наносите " << pDmg << " урона по " << enemy.GetName() << "!\n";
+            cout << "-> Р’С‹ РЅР°РЅРѕСЃРёС‚Рµ " << pDmg << " СѓСЂРѕРЅР° РїРѕ " << enemy.GetName() << "!\n";
             TakeDamage(enemy, pDmg);
 
             if (enemy.GetHealth() <= 0) {
-                cout << "\n*** ПОБЕДА! " << enemy.GetName() << " убежал в страхе! ***\n";
+                cout << "\n*** РџРћР‘Р•Р”Рђ! " << enemy.GetName() << " СѓР±РµР¶Р°Р» РІ СЃС‚СЂР°С…Рµ! ***\n";
                 break;
             }
 
-            // 2. Враг бьет
+            // 2. Р’СЂР°Рі Р±СЊРµС‚
             float eDmg = enemy.GetDamage();
-            cout << "<- " << enemy.GetName() << " атакует вас на " << eDmg << " урона!\n";
-            TakeDamage(*player, eDmg); // Разыменовываем указатель, чтобы передать ссылку
+            cout << "<- " << enemy.GetName() << " Р°С‚Р°РєСѓРµС‚ РІР°СЃ РЅР° " << eDmg << " СѓСЂРѕРЅР°!\n";
+            TakeDamage(*player, eDmg); // Р Р°Р·С‹РјРµРЅРѕРІС‹РІР°РµРј СѓРєР°Р·Р°С‚РµР»СЊ, С‡С‚РѕР±С‹ РїРµСЂРµРґР°С‚СЊ СЃСЃС‹Р»РєСѓ
 
-            cout << "Ваше настроение: " << player->GetHealth() << "\n";
+            cout << "Р’Р°С€Рµ РЅР°СЃС‚СЂРѕРµРЅРёРµ: " << player->GetHealth() << "\n";
 
             if (player->GetHealth() <= 0) {
-                cout << "\n*** ВЫ НЕ СМОГЛИ ЗАЩИТИТЬ КОРОЛЕВСТВО СЛАДОСТЕЙ >:(((( ***\n";
+                cout << "\n*** Р’Р« РќР• РЎРњРћР“Р›Р Р—РђР©РРўРРўР¬ РљРћР РћР›Р•Р’РЎРўР’Рћ РЎР›РђР”РћРЎРўР•Р™ >:(((( ***\n";
                 break;
             }
         }
         else if (action == 2)
         {
             if (rand() % 2 == 0) {
-                cout << "Вы трусливо избежали драки, никто этого не видел... с:\n";
+                cout << "Р’С‹ С‚СЂСѓСЃР»РёРІРѕ РёР·Р±РµР¶Р°Р»Рё РґСЂР°РєРё, РЅРёРєС‚Рѕ СЌС‚РѕРіРѕ РЅРµ РІРёРґРµР»... СЃ:\n";
                 break;
             } else {
-                cout << "Вы убегаете, но " << enemy.GetName() << " использовал запретную силу. Вы не успели увернуться.";
+                cout << "Р’С‹ СѓР±РµРіР°РµС‚Рµ, РЅРѕ " << enemy.GetName() << " РёСЃРїРѕР»СЊР·РѕРІР°Р» Р·Р°РїСЂРµС‚РЅСѓСЋ СЃРёР»Сѓ. Р’С‹ РЅРµ СѓСЃРїРµР»Рё СѓРІРµСЂРЅСѓС‚СЊСЃСЏ.";
                 float eDmg = enemy.GetDamage();
                 TakeDamage(*player, eDmg);
-                cout << "Ваше настроение: " << player->GetHealth() << "\n";
+                cout << "Р’Р°С€Рµ РЅР°СЃС‚СЂРѕРµРЅРёРµ: " << player->GetHealth() << "\n";
                 if (player->GetHealth() <= 0) break;
             }
         }
@@ -164,16 +164,16 @@ int main()
     setlocale(LC_ALL, "Rus");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    srand(time(0)); // Инициализация генератора случайных чисел
+    srand(time(0)); // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РіРµРЅРµСЂР°С‚РѕСЂР° СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
 
     Player* player = new Player();
 
-    cout << "Королевству сладостей нужна помощь Hello Kitty и её друзей.\nНам нужно знать, сможешь ли ты победить злых врагов!!!\nТы впервые тут?\n\t1 - новый персонаж,\n\t2 - загрузить\n";
-    if (TestChoise(2, "Наверное ты ошибся, повтори снова") == 1) // Если 1 - новый
+    cout << "РљРѕСЂРѕР»РµРІСЃС‚РІСѓ СЃР»Р°РґРѕСЃС‚РµР№ РЅСѓР¶РЅР° РїРѕРјРѕС‰СЊ Hello Kitty Рё РµС‘ РґСЂСѓР·РµР№.\nРќР°Рј РЅСѓР¶РЅРѕ Р·РЅР°С‚СЊ, СЃРјРѕР¶РµС€СЊ Р»Рё С‚С‹ РїРѕР±РµРґРёС‚СЊ Р·Р»С‹С… РІСЂР°РіРѕРІ!!!\nРўС‹ РІРїРµСЂРІС‹Рµ С‚СѓС‚?\n\t1 - РЅРѕРІС‹Р№ РїРµСЂСЃРѕРЅР°Р¶,\n\t2 - Р·Р°РіСЂСѓР·РёС‚СЊ\n";
+    if (TestChoise(2, "РќР°РІРµСЂРЅРѕРµ С‚С‹ РѕС€РёР±СЃСЏ, РїРѕРІС‚РѕСЂРё СЃРЅРѕРІР°") == 1) // Р•СЃР»Рё 1 - РЅРѕРІС‹Р№
     {
-        cout << "По одёжке встречают, по уму провожают. Кто ты?\n\t1 - Лягушка\n\t2 - Китти\n\t3 - Куроми\n";
+        cout << "РџРѕ РѕРґС‘Р¶РєРµ РІСЃС‚СЂРµС‡Р°СЋС‚, РїРѕ СѓРјСѓ РїСЂРѕРІРѕР¶Р°СЋС‚. РљС‚Рѕ С‚С‹?\n\t1 - Р›СЏРіСѓС€РєР°\n\t2 - РљРёС‚С‚Рё\n\t3 - РљСѓСЂРѕРјРё\n";
         unique_ptr<Npc> character;
-        switch (TestChoise(3, "Ты, по-моему, перепутал."))
+        switch (TestChoise(3, "РўС‹, РїРѕ-РјРѕРµРјСѓ, РїРµСЂРµРїСѓС‚Р°Р»."))
         {
             case 1: character = CreateCharacter(CharacterType::Lyagushka); break;
             case 2: character = CreateCharacter(CharacterType::Kitty); break;
@@ -183,38 +183,38 @@ int main()
     }
     else
     {
-        // Загрузка
-        ifstream loadSystem("save.bin", ios::binary); // Тут было .txt, но в классах у тебя .bin
+        // Р—Р°РіСЂСѓР·РєР°
+        ifstream loadSystem("save.bin", ios::binary); // РўСѓС‚ Р±С‹Р»Рѕ .txt, РЅРѕ РІ РєР»Р°СЃСЃР°С… Сѓ С‚РµР±СЏ .bin
         if (!loadSystem.is_open())
         {
-            cout << "Связь с космосом потеряна. Создаем нового персонажа по умолчанию (Воин).\n";
+            cout << "РЎРІСЏР·СЊ СЃ РєРѕСЃРјРѕСЃРѕРј РїРѕС‚РµСЂСЏРЅР°. РЎРѕР·РґР°РµРј РЅРѕРІРѕРіРѕ РїРµСЂСЃРѕРЅР°Р¶Р° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ (Р’РѕРёРЅ).\n";
             player->Create(CreateCharacter(CharacterType::Lyagushka));
         }
         else
         {
-            // Упрощенная загрузка для примера. В идеале нужно знать класс перед загрузкой.
-            // Пока просто создадим воина и попробуем загрузить в него.
+            // РЈРїСЂРѕС‰РµРЅРЅР°СЏ Р·Р°РіСЂСѓР·РєР° РґР»СЏ РїСЂРёРјРµСЂР°. Р’ РёРґРµР°Р»Рµ РЅСѓР¶РЅРѕ Р·РЅР°С‚СЊ РєР»Р°СЃСЃ РїРµСЂРµРґ Р·Р°РіСЂСѓР·РєРѕР№.
+            // РџРѕРєР° РїСЂРѕСЃС‚Рѕ СЃРѕР·РґР°РґРёРј РІРѕРёРЅР° Рё РїРѕРїСЂРѕР±СѓРµРј Р·Р°РіСЂСѓР·РёС‚СЊ РІ РЅРµРіРѕ.
             unique_ptr<Npc> tempChar = make_unique<Lyagushka>(); 
-            loadSystem.close(); // Player->Load сам открывает файл, поэтому закроем тут
+            loadSystem.close(); // Player->Load СЃР°Рј РѕС‚РєСЂС‹РІР°РµС‚ С„Р°Р№Р», РїРѕСЌС‚РѕРјСѓ Р·Р°РєСЂРѕРµРј С‚СѓС‚
             if (player->Load(move(tempChar))) {
-                cout << "Персонаж загружен!\n";
+                cout << "РџРµСЂСЃРѕРЅР°Р¶ Р·Р°РіСЂСѓР¶РµРЅ!\n";
                 player->GetCharacter()->GetInfo();
             }
         }
     }
 
-    // --- ОСНОВНОЙ ЦИКЛ ИГРЫ ---
+    // --- РћРЎРќРћР’РќРћР™ Р¦РРљР› РР“Р Р« ---
     bool gameRunning = true;
     while (gameRunning && player->GetCharacter() != nullptr && player->GetCharacter()->GetHealth() > 0)
     {
         cout << "\n----------------------------------\n";
-        cout << "\nДля победы нужно испортить настроение врагу\n";
-        cout << "Вы в безопасной зоне. Что будем делать?\n";
-        cout << "\t1 - Защищать королевство\n";
-        cout << "\t2 - Посмотреть статистику\n";
-        cout << "\t3 - Сохранить и выйти\n";
+        cout << "\nР”Р»СЏ РїРѕР±РµРґС‹ РЅСѓР¶РЅРѕ РёСЃРїРѕСЂС‚РёС‚СЊ РЅР°СЃС‚СЂРѕРµРЅРёРµ РІСЂР°РіСѓ\n";
+        cout << "Р’С‹ РІ Р±РµР·РѕРїР°СЃРЅРѕР№ Р·РѕРЅРµ. Р§С‚Рѕ Р±СѓРґРµРј РґРµР»Р°С‚СЊ?\n";
+        cout << "\t1 - Р—Р°С‰РёС‰Р°С‚СЊ РєРѕСЂРѕР»РµРІСЃС‚РІРѕ\n";
+        cout << "\t2 - РџРѕСЃРјРѕС‚СЂРµС‚СЊ СЃС‚Р°С‚РёСЃС‚РёРєСѓ\n";
+        cout << "\t3 - РЎРѕС…СЂР°РЅРёС‚СЊ Рё РІС‹Р№С‚Рё\n";
         
-        unsigned short choice = TestChoise(3, "Нет такого варианта");
+        unsigned short choice = TestChoise(3, "РќРµС‚ С‚Р°РєРѕРіРѕ РІР°СЂРёР°РЅС‚Р°");
 
         switch (choice)
         {
@@ -226,16 +226,16 @@ int main()
             break;
         case 3:
             if (player->Save()) {
-                cout << "Игра сохранена!\n";
+                cout << "РРіСЂР° СЃРѕС…СЂР°РЅРµРЅР°!\n";
             } else {
-                cout << "Ошибка сохранения.\n";
+                cout << "РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ.\n";
             }
             gameRunning = false;
             break;
         }
 
         if (player->GetCharacter()->GetHealth() <= 0) {
-            cout << "\nДостойная смерть — начало бессмертия в легенде.\n";
+            cout << "\nР”РѕСЃС‚РѕР№РЅР°СЏ СЃРјРµСЂС‚СЊ вЂ” РЅР°С‡Р°Р»Рѕ Р±РµСЃСЃРјРµСЂС‚РёСЏ РІ Р»РµРіРµРЅРґРµ.\n";
             gameRunning = false;
         }
     }
@@ -245,4 +245,4 @@ int main()
 }
 
 
-//всех samurai shaman paladin самурай шамаш шиноби во всех файлах на лягушка китти и куроми
+//РІСЃРµС… samurai shaman paladin СЃР°РјСѓСЂР°Р№ С€Р°РјР°С€ С€РёРЅРѕР±Рё РІРѕ РІСЃРµС… С„Р°Р№Р»Р°С… РЅР° Р»СЏРіСѓС€РєР° РєРёС‚С‚Рё Рё РєСѓСЂРѕРјРё
